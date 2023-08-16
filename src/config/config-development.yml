@@ -1,0 +1,9 @@
+server:
+  Port: 5005
+  RunMode: debug
+logger:
+  filePath: ../logs/logs.log
+  Encoding: json
+  level: debug
+cors:
+  allowOrigins: "*"
