@@ -12,21 +12,24 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-func InitServer() {
-	cfg := config.GetConfig()
+func InitServer(cfg *config.Config) {
 	r := gin.New()
+	RegisterValidators()
+	r.Use(gin.Logger(), gin.Recovery() /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
+	RegisterRoutes(r)
+	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
+}
 
+func RegisterValidators() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		val.RegisterValidation("mobile", validations.IranianMobileNumberValidator, true)
 	}
+}
 
-	r.Use(gin.Logger(), gin.Recovery() /*middlewares.TestMiddleware()*/, middlewares.LimitByRequest())
-
+func RegisterRoutes(r *gin.Engine) {
 	v1 := r.Group("/api/v1")
 	{
 		routes.Health(v1)
 	}
-
-	r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
 }
