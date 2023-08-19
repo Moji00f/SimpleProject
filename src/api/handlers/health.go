@@ -25,8 +25,35 @@ func NewHealthHandler() *HealthHandler {
 	return &HealthHandler{}
 }
 
+// HealthCheck godoc
+// @Summary Health Check
+// @Description Health Check
+// @Tags health
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} helper.BaseHttpResponse "Success"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/health/ [get]
 func (h *HealthHandler) Health(c *gin.Context) {
 	c.JSON(http.StatusOK, helper.GenerateBaseResponse("working", true, 0))
+}
+
+// UserById godoc
+// @Summary UserById
+// @Description UserById
+// @Tags Test
+// @Accept  json
+// @Produce  json
+// @Param id path int true "User Id"
+// @Success 200 {object} helper.BaseHttpResponse "Success"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/user/{id} [get]
+func (h *HealthHandler) UserById(c *gin.Context) {
+	id := c.Param("id")
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse(gin.H{
+		"result": "UserById",
+		"id":     id,
+	}, true, 0))
 }
 
 func (h *HealthHandler) HeaderBinder1(c *gin.Context) {
@@ -76,6 +103,17 @@ func (h *HealthHandler) UriBinder(c *gin.Context) {
 	}, true, 0))
 }
 
+// BodyBinder godoc
+// @Summary BodyBinder
+// @Description BodyBinder
+// @Tags BodyBinder
+// @Accept  json
+// @Produce  json
+// @Param person body Person true "Persono Data"
+// @Success 200 {object} helper.BaseHttpResponse "Success"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/binder/body [post]
+// @Security AuthBearer
 func (h *HealthHandler) BodyBinder(c *gin.Context) {
 	p := Person{}
 	err := c.ShouldBindJSON(&p)

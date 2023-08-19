@@ -9,6 +9,9 @@ import (
 	"github.com/Moji00f/SimpleProject/data/db"
 )
 
+// @securityDefinitions.apikey AuthBearer
+// @in headers
+// @name Authorization
 func main() {
 	cfg := config.GetConfig()
 	err := cache.InitRedis(cfg)
