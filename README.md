@@ -9,3 +9,18 @@
 6. [PgAdmin as database management tool](https://github.com/pgadmin-org/pgadmin4)
 7. [Gorm as ORM](https://github.com/go-gorm/gorm)
 8. [Swagger for documentation](https://github.com/swaggo/swag)
+
+9. [go get github.com/swaggo/gin-swagger]()
+10. [go get github.com/swaggo/swag]()
+11. [go get github.com/swaggo/files]()
+
+
+### zsh: command not found: swag
+```
+export PATH=$(go env GOPATH)/bin:$PATH
+```
+
+```
+export GOROOT=$HOME/go
+export PATH=$PATH:$GOROOT/bin
+```
