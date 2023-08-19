@@ -10,9 +10,10 @@ import (
 )
 
 type Config struct {
-	Server ServerConfig
-	Logger LoggerConfig
-	Redis  ResiConfig
+	Server   ServerConfig
+	Logger   LoggerConfig
+	Redis    ResiConfig
+	Postgres PostgresConfig
 }
 
 type ServerConfig struct {
@@ -31,6 +32,18 @@ type ResiConfig struct {
 	PoolSize           int
 	PoolTimeout        time.Duration
 	IdleCheckFrequency time.Duration
+}
+
+type PostgresConfig struct {
+	Host            string
+	Port            string
+	User            string
+	Password        string
+	DbName          string
+	SSLMode         string
+	MaxIdleConns    int
+	MaxOpenConns    int
+	ConnMaxLifetime time.Duration
 }
 
 type LoggerConfig struct {
