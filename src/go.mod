@@ -7,7 +7,6 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.15.1
 	github.com/go-redis/redis/v7 v7.4.1
-	github.com/google/uuid v1.1.2
 	github.com/rs/zerolog v1.30.0
 	github.com/spf13/viper v1.16.0
 	github.com/swaggo/files v1.0.1
@@ -53,7 +52,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml/v2 v2.0.9 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
