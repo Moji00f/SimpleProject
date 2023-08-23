@@ -5,6 +5,7 @@ import (
 	"github.com/Moji00f/SimpleProject/config"
 	"github.com/Moji00f/SimpleProject/data/cache"
 	"github.com/Moji00f/SimpleProject/data/db"
+	"github.com/Moji00f/SimpleProject/data/db/migrations"
 	"github.com/Moji00f/SimpleProject/pkg/logging"
 )
 
@@ -25,6 +26,8 @@ func main() {
 	if err != nil {
 		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 	}
+
+	migrations.Up_1()
 
 	api.InitServer(cfg)
 }

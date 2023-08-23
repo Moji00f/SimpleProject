@@ -14,6 +14,7 @@ type Config struct {
 	Logger   LoggerConfig
 	Redis    ResiConfig
 	Postgres PostgresConfig
+	Otp      OtpConfig
 }
 
 type ServerConfig struct {
@@ -51,6 +52,12 @@ type LoggerConfig struct {
 	Encoding string
 	Level    string
 	Logger   string
+}
+
+type OtpConfig struct {
+	ExpireTime time.Duration
+	Digits     int
+	Limiter    time.Duration
 }
 
 func getConfigPath(env string) string {

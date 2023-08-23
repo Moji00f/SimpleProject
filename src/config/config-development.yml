@@ -29,3 +29,7 @@ postgres:
   MaxIdleConns: 15
   MaxOpenConns: 100
   ConnMaxLifetime: 5
+otp:
+  expireTime: 120
+  digits: 6
+  limiter: 100
