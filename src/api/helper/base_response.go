@@ -25,7 +25,7 @@ func GenerateBaseResponseWithError(result any, success bool, resultCode int, err
 		Resule:     result,
 		Success:    success,
 		ResultCode: resultCode,
-		Error:      err,
+		Error:      err.Error(),
 	}
 }
 
