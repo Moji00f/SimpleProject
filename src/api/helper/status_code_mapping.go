@@ -6,12 +6,6 @@ import (
 	"github.com/Moji00f/SimpleProject/pkg/service_error"
 )
 
-type ResultCode int
-
-const (
-	OtpLimiterError ResultCode = 42902
-)
-
 var StatusCodeMapping = map[string]int{
 	//OTP
 	service_error.OptExists:   409,

@@ -14,6 +14,7 @@ type Config struct {
 	Logger   LoggerConfig
 	Redis    ResiConfig
 	Postgres PostgresConfig
+	Password PasswordConfig
 	Otp      OtpConfig
 	JWT      JwtConfig
 }
@@ -53,6 +54,15 @@ type LoggerConfig struct {
 	Encoding string
 	Level    string
 	Logger   string
+}
+
+type PasswordConfig struct {
+	IncludeChars     bool
+	IncludeDigits    bool
+	MinLength        int
+	MaxLength        int
+	IncludeUppercase bool
+	IncludeLowercase bool
 }
 
 type OtpConfig struct {

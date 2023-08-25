@@ -29,6 +29,13 @@ postgres:
   MaxIdleConns: 15
   MaxOpenConns: 100
   ConnMaxLifetime: 5
+password:
+  includeChars: true
+  includeDigits: true
+  minLength: 6
+  maxLength: 64
+  includeUppercase: true
+  includeLowercase: true
 otp:
   expireTime: 120
   digits: 6
