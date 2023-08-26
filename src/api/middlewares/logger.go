@@ -3,6 +3,7 @@ package middlewares
 import (
 	"bytes"
 	"io/ioutil"
+	"strings"
 	"time"
 
 	"github.com/Moji00f/SimpleProject/config"
@@ -32,6 +33,11 @@ func DefaultStructuredLogger(cfg *config.Config) gin.HandlerFunc {
 
 func StructuredLogger(logger logging.Logger) gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		if strings.Contains(c.FullPath(), "swagger") {
+			c.Next()
+		}
+
 		blw := &bodyLogWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
 		start := time.Now() //start
 		path := c.FullPath()

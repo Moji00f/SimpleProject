@@ -14,7 +14,9 @@ type Config struct {
 	Logger   LoggerConfig
 	Redis    ResiConfig
 	Postgres PostgresConfig
+	Password PasswordConfig
 	Otp      OtpConfig
+	JWT      JwtConfig
 }
 
 type ServerConfig struct {
@@ -54,10 +56,25 @@ type LoggerConfig struct {
 	Logger   string
 }
 
+type PasswordConfig struct {
+	IncludeChars     bool
+	IncludeDigits    bool
+	MinLength        int
+	MaxLength        int
+	IncludeUppercase bool
+	IncludeLowercase bool
+}
+
 type OtpConfig struct {
 	ExpireTime time.Duration
 	Digits     int
 	Limiter    time.Duration
+}
+type JwtConfig struct {
+	AccessTokenExpireDuration  time.Duration
+	RefreshTokenExpireDuration time.Duration
+	Secret                     string
+	RefreshSecret              string
 }
 
 func getConfigPath(env string) string {
