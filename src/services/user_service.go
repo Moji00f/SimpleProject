@@ -1,8 +1,6 @@
 package services
 
 import (
-	"fmt"
-
 	"github.com/Moji00f/SimpleProject/api/dto"
 	"github.com/Moji00f/SimpleProject/common"
 	"github.com/Moji00f/SimpleProject/config"
@@ -148,9 +146,7 @@ func (s *UserService) RegisterLoginByMobileNumber(req *dto.RegisterLoginByMobile
 		}
 		tdto := tokenDto{UserId: user.Id, FirstName: user.FirstName, LastName: user.LastName,
 			Email: user.Email, MobileNumber: user.MobileNumber}
-		fmt.Println("****************")
-		fmt.Printf("-----------------%v", user)
-		fmt.Println("**************End***********")
+
 		if len(*user.UserRoles) > 0 {
 			for _, ur := range *user.UserRoles {
 				tdto.Roles = append(tdto.Roles, ur.Role.Name)
