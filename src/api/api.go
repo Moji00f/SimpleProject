@@ -41,7 +41,7 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	api := r.Group("/api")
 	v1 := api.Group("/v1")
 	{
-		health := v1.Group("/health")
+		health := v1.Group("/health", middlewares.Authentication(cfg))
 		users := v1.Group("/users")
 		routes.Health(health)
 		routes.User(users, cfg)
