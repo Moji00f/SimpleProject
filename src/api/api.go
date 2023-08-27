@@ -43,8 +43,10 @@ func RegisterRoutes(r *gin.Engine, cfg *config.Config) {
 	{
 		health := v1.Group("/health", middlewares.Authentication(cfg))
 		users := v1.Group("/users")
+		countries := v1.Group("/countries", middlewares.Authentication(cfg), middlewares.Authorization([]string{"admin"}))
 		routes.Health(health)
 		routes.User(users, cfg)
+		routes.Country(countries, cfg)
 	}
 }
 
