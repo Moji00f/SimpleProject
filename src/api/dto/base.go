@@ -4,12 +4,12 @@ type CreateUpdateCountryRequest struct {
 	Name string `json:"name" binding:"required,alpha,min=3,max=20"`
 }
 
-// type CountryResponse struct {
-// 	Id        int               `json:"id"`
-// 	Name      string            `json:"name"`
-// 	Cities    []CityResponse    `json:"cities,omitempty"`
-// 	Companies []CompanyResponse `json:"companies,omitempty"`
-// }
+type CountryResponse struct {
+	Id     int            `json:"id"`
+	Name   string         `json:"name"`
+	Cities []CityResponse `json:"cities,omitempty"`
+	// Companies []CompanyResponse `json:"companies,omitempty"`
+}
 
 type CreateCityRequest struct {
 	Name      string `json:"name" binding:"required,alpha,min=3,max=20"`
@@ -21,11 +21,11 @@ type UpdateCityRequest struct {
 	CountryId int    `json:"countryId,omitempty"`
 }
 
-// type CityResponse struct {
-// 	Id      int             `json:"id"`
-// 	Name    string          `json:"name"`
-// 	Country CountryResponse `json:"country,omitempty"`
-// }
+type CityResponse struct {
+	Id      int             `json:"id"`
+	Name    string          `json:"name"`
+	Country CountryResponse `json:"country,omitempty"`
+}
 
 // type CompanyResponse struct {
 // 	Id      int             `json:"id"`
@@ -33,7 +33,7 @@ type UpdateCityRequest struct {
 // 	Country CountryResponse `json:"country,omitempty"`
 // }
 
-type CountryResponse struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
-}
+// type CountryResponse struct {
+// 	Id   int    `json:"id"`
+// 	Name string `json:"name"`
+// }
