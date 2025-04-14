@@ -1,4 +1,4 @@
-package router
+package routers
 
 import (
 	"github.com/Moji00f/SimpleProject/api/handler"
@@ -7,5 +7,6 @@ import (
 
 func Health(r *gin.RouterGroup) {
 	handler := handler.NewHealthHandler()
+
 	r.GET("/", handler.Health)
 }

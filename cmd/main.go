@@ -5,7 +5,7 @@ import (
 	"github.com/Moji00f/SimpleProject/config"
 	"github.com/Moji00f/SimpleProject/data/cache"
 	"github.com/Moji00f/SimpleProject/data/db"
-	"log"
+	"github.com/Moji00f/SimpleProject/pkg/logging"
 )
 
 // @securityDefinitions.apikey AuthBearer
@@ -13,17 +13,18 @@ import (
 // @name Authorization
 func main() {
 	cfg := config.GetConfig()
+	logger := logging.NewLogger(cfg)
 	err := cache.InitRedis(cfg)
 	defer cache.CloseRedis()
 	if err != nil {
-		log.Fatalf("Init redis has a problem ..., err: %v", err)
+		logger.Fatal(logging.Redis, logging.Startup, err.Error(), nil)
 	}
 	_ = cache.GetRedis()
 
 	err = db.InitDb(cfg)
 	defer db.CloseDb()
 	if err != nil {
-		log.Fatalf("Init postgres has a problem ..., err: %v", err)
+		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 
 	}
 

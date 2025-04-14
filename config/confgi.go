@@ -1,6 +1,12 @@
 package config
 
-import "time"
+import (
+	"errors"
+	"github.com/spf13/viper"
+	"log"
+	"os"
+	"time"
+)
 
 type Config struct {
 	Server   ServerConfig
@@ -77,6 +83,66 @@ type JWTConfig struct {
 	RefreshSecret              string
 }
 
-func LoadConfig(fileName string, fileType string) {
+func LoadConfig(fileName string, fileType string) (*viper.Viper, error) {
 
+	v := viper.New()
+	v.SetConfigName(fileName)
+	v.SetConfigType(fileType)
+	v.AddConfigPath(".")
+	v.AutomaticEnv()
+
+	err := v.ReadInConfig()
+	if err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			return nil, errors.New("config file not found")
+		}
+		log.Printf("Unable to read config: %v", err)
+		return nil, err
+	}
+	return v, nil
+}
+
+func Parse(v *viper.Viper) (*Config, error) {
+	var cfg Config
+	err := v.Unmarshal(&cfg)
+	if err != nil {
+		log.Printf("Unable to parse config: %v", err)
+		return nil, err
+	}
+
+	return &cfg, nil
+}
+
+func getConfigPath(env string) string {
+	if env == "docker" {
+		return "/app/config/config-docker"
+	} else if env == "production" {
+		return "/config/config-production"
+	} else {
+		return "../config/config-development"
+	}
+}
+
+func GetConfig() *Config {
+	cfgPath := getConfigPath(os.Getenv("APP_ENV"))
+	v, err := LoadConfig(cfgPath, "yml")
+	if err != nil {
+		log.Fatalf("Error in load config %v", err)
+	}
+
+	cfg, err := Parse(v)
+	if err != nil {
+		log.Fatalf("Error in parse config %v", err)
+	}
+
+	envPort := os.Getenv("PORT")
+	if envPort != "" {
+		cfg.Server.ExternalPort = envPort
+		log.Printf("Set external port from environment -> %s", cfg.Server.ExternalPort)
+	} else {
+		cfg.Server.ExternalPort = cfg.Server.InternalPort
+		log.Printf("Set external port from interalPort -> %s", cfg.Server.ExternalPort)
+	}
+
+	return cfg
 }

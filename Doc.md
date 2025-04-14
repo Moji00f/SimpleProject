@@ -219,7 +219,7 @@ You can find a number of ready-to-run examples at [Gin examples repository](http
 
 ```go
 func main() {
-	// Creates a gin router with default middleware:
+	// Creates a gin routers with default middleware:
 	// logger and recovery (crash-free) middleware
 	router := gin.Default()
 
@@ -234,7 +234,7 @@ func main() {
 	// By default it serves on :8080 unless a
 	// PORT environment variable was defined.
 	router.Run()
-	// router.Run(":3000") for a hard coded port
+	// routers.Run(":3000") for a hard coded port
 }
 ```
 
@@ -265,7 +265,7 @@ func main() {
 		c.String(http.StatusOK, "%t", b)
 	})
 
-	// This handler will add a new router for /user/groups.
+	// This handler will add a new routers for /user/groups.
 	// Exact routes are resolved before param routes, regardless of the order they were defined.
 	// Routes starting with /user/groups are never interpreted as /user/:name/... routes
 	router.GET("/user/groups", func(c *gin.Context) {
@@ -489,7 +489,7 @@ r := gin.Default()
 ### Using middleware
 ```go
 func main() {
-	// Creates a router without any middleware by default
+	// Creates a routers without any middleware by default
 	r := gin.New()
 
 	// Global middleware
@@ -529,7 +529,7 @@ func main() {
 ### Custom Recovery behavior
 ```go
 func main() {
-	// Creates a router without any middleware by default
+	// Creates a routers without any middleware by default
 	r := gin.New()
 
 	// Global middleware
@@ -629,7 +629,7 @@ func main() {
     // Disable log's color
     gin.DisableConsoleColor()
 
-    // Creates a gin router with default middleware:
+    // Creates a gin routers with default middleware:
     // logger and recovery (crash-free) middleware
     router := gin.Default()
 
@@ -648,7 +648,7 @@ func main() {
     // Force log's color
     gin.ForceConsoleColor()
 
-    // Creates a gin router with default middleware:
+    // Creates a gin routers with default middleware:
     // logger and recovery (crash-free) middleware
     router := gin.Default()
 
@@ -1316,7 +1316,7 @@ Using LoadHTMLGlob() or LoadHTMLFiles()
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
-	//router.LoadHTMLFiles("templates/template1.html", "templates/template2.html")
+	//routers.LoadHTMLFiles("templates/template1.html", "templates/template2.html")
 	router.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"title": "Main website",
