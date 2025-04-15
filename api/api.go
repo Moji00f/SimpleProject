@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+	"github.com/Moji00f/SimpleProject/api/middleware"
 	"github.com/Moji00f/SimpleProject/api/routers"
 	"github.com/Moji00f/SimpleProject/docs"
 
@@ -17,6 +18,8 @@ import (
 
 func InitServer(cfg *config.Config) {
 	r := gin.New()
+
+	r.Use(middleware.DefaultStructuredLogger(cfg))
 	r.Use(gin.Logger(), gin.Recovery())
 
 	RegisterValidator()

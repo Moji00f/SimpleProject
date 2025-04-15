@@ -72,8 +72,8 @@ func (l *zapLogger) Init() {
 		).Sugar()
 
 		zapSinLogger = logger.With("AppName", "MyApp", "LoggerName", "ZapLog")
-		l.logger = zapSinLogger
 	})
+	l.logger = zapSinLogger
 }
 
 func prepareLogInfo(cat Category, sub SubCategory, extra map[ExtraKey]interface{}) []interface{} {
