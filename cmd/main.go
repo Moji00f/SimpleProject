@@ -30,7 +30,7 @@ func main() {
 	}
 
 	migrations.Up()
-	migrations.Down()
+	//migrations.Down()
 
 	api.InitServer(cfg)
 }
