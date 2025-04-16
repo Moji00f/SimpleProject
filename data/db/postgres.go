@@ -3,11 +3,13 @@ package db
 import (
 	"fmt"
 	"github.com/Moji00f/SimpleProject/config"
+	"github.com/Moji00f/SimpleProject/pkg/logging"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 var dbClient *gorm.DB
+var logger = logging.NewLogger(config.GetConfig())
 
 func InitDb(cfg *config.Config) error {
 	var err error
@@ -20,7 +22,7 @@ func InitDb(cfg *config.Config) error {
 		cfg.Postgres.DbName,
 		cfg.Postgres.SSLMode)
 
-	dbClient, err := gorm.Open(postgres.Open(cnn), &gorm.Config{})
+	dbClient, err = gorm.Open(postgres.Open(cnn), &gorm.Config{})
 	if err != nil {
 		return err
 	}
