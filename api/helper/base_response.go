@@ -5,14 +5,14 @@ import (
 )
 
 type BaseHttpResponse struct {
-	Result           any  `json:"result"`
-	Success          bool `json:"success"`
-	ResultCode       int  `json:"resultCode"`
+	Result           any        `json:"result"`
+	Success          bool       `json:"success"`
+	ResultCode       ResultCode `json:"resultCode"`
 	ValidationErrors *[]validation.ValidationError
 	Error            any
 }
 
-func GenerateBaseResponse(result any, success bool, resultCode int) *BaseHttpResponse {
+func GenerateBaseResponse(result any, success bool, resultCode ResultCode) *BaseHttpResponse {
 	return &BaseHttpResponse{
 		Result:     result,
 		Success:    success,
@@ -20,7 +20,7 @@ func GenerateBaseResponse(result any, success bool, resultCode int) *BaseHttpRes
 	}
 }
 
-func GenerateBaseResponseWithError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
+func GenerateBaseResponseWithError(result any, success bool, resultCode ResultCode, err error) *BaseHttpResponse {
 	return &BaseHttpResponse{
 		Result:     result,
 		Success:    success,
@@ -29,7 +29,7 @@ func GenerateBaseResponseWithError(result any, success bool, resultCode int, err
 	}
 }
 
-func GenerateBaseResponseWithAnyError(result any, success bool, resultCode int, err any) *BaseHttpResponse {
+func GenerateBaseResponseWithAnyError(result any, success bool, resultCode ResultCode, err any) *BaseHttpResponse {
 	return &BaseHttpResponse{
 		Result:     result,
 		Success:    success,
@@ -38,7 +38,7 @@ func GenerateBaseResponseWithAnyError(result any, success bool, resultCode int, 
 	}
 }
 
-func GenerateBaseResponseWithValidationError(result any, success bool, resultCode int, err error) *BaseHttpResponse {
+func GenerateBaseResponseWithValidationError(result any, success bool, resultCode ResultCode, err error) *BaseHttpResponse {
 	return &BaseHttpResponse{
 		Result:           result,
 		Success:          success,

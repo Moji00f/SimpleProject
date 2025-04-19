@@ -3,6 +3,7 @@ package cache
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/Moji00f/SimpleProject/config"
 	"github.com/go-redis/redis/v8"
@@ -56,6 +57,9 @@ func Get[T any](c *redis.Client, key string) (T, error) {
 	var dest T = *new(T)
 
 	v, err := c.Get(context.Background(), key).Result()
+	if errors.Is(err, redis.Nil) {
+		return dest, redis.Nil
+	}
 	if err != nil {
 		return dest, err
 	}
