@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"fmt"
 	"github.com/Moji00f/SimpleProject/common"
 	"github.com/Moji00f/SimpleProject/config"
@@ -48,21 +49,19 @@ func (o *OtpService) SetOtp(mobileNumber string, otp string) error {
 	}
 
 	res, err := cache.Get[otpDto](o.redisClient, key)
-	if err != nil {
+	if err != nil && !errors.Is(err, redis.Nil) {
 		return err
 	}
-	if !res.Used && err == nil {
+	if err == nil && res.Value != "" && !res.Used {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OptExists}
-	} else if res.Used && err == nil {
+	} else if err == nil && res.Used {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OtpUsed}
-
 	}
+	if res.Value == "" && errors.Is(err, redis.Nil) {
 
-	err = cache.Set(o.redisClient, key, val, o.cfg.Otp.ExpireTime*time.Second)
-	if err != nil {
+		err = cache.Set(o.redisClient, key, val, o.cfg.Otp.ExpireTime*time.Second)
 		return err
 	}
-
 	return nil
 }
 
@@ -77,11 +76,10 @@ func (o *OtpService) ValidateOtp(mobileNumber string, otp string) error {
 		return &service_errors.ServiceError{EndUserMessage: service_errors.OtpNotValid}
 	} else if !res.Used && res.Value == otp {
 		res.Used = true
-		err := cache.Set(o.redisClient, key, res, o.cfg.Otp.ExpireTime*time.Second)
+		err = cache.Set(o.redisClient, key, res, o.cfg.Otp.ExpireTime*time.Second)
 		if err != nil {
 			return err
 		}
 	}
-
 	return nil
 }
