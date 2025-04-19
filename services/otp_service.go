@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"github.com/Moji00f/SimpleProject/common"
 	"github.com/Moji00f/SimpleProject/config"
 	"github.com/Moji00f/SimpleProject/constant"
 	"github.com/Moji00f/SimpleProject/data/cache"
@@ -27,6 +28,16 @@ func NewOtpService(cfg *config.Config) *OtpService {
 	getRedis := cache.GetRedis()
 
 	return &OtpService{logger: logger, cfg: cfg, redisClient: getRedis}
+}
+
+func (o *OtpService) SendOtp(mobileNumber string) error {
+	otp := common.GenerateOtp()
+	err := o.SetOtp(mobileNumber, otp)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (o *OtpService) SetOtp(mobileNumber string, otp string) error {
